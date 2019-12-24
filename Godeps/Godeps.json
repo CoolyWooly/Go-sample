@@ -1,0 +1,35 @@
+{
+	"ImportPath": "sample_rest",
+	"GoVersion": "go1.14",
+	"GodepVersion": "v80",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.7.3-15-g49c0148",
+			"Rev": "49c01487a141b49f8ffe06277f3dca3ee80a55fa"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Comment": "v1.9.11-36-g79a77d7",
+			"Rev": "79a77d771dee4e4b60e9c543e8663bbc80466670"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm/dialects/sqlite",
+			"Comment": "v1.9.11-36-g79a77d7",
+			"Rev": "79a77d771dee4e4b60e9c543e8663bbc80466670"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/inflection",
+			"Comment": "v1.0.0",
+			"Rev": "f5c5f50e6090ae76a29240b61ae2a90dd810112e"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-sqlite3",
+			"Comment": "v2.0.2",
+			"Rev": "53cff3fcebd1e177d04129dc131523635bc45d3d"
+		}
+	]
+}
