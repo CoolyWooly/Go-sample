@@ -1,7 +1,6 @@
 package app
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -20,15 +19,8 @@ type App struct {
 
 // App initialize with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	_ = fmt.Sprintf("%s:%s@/%s?charset=%s&parseTime=True",
-		config.DB.Username,
-		config.DB.Password,
-		config.DB.Name,
-		config.DB.Charset)
-
 	db, err := gorm.Open("sqlite3", "C:\\Users\\AndroidDev\\GOProjects\\src\\sample_rest\\gorm.db")
 	//db, err := gorm.Open("sqlite3", ":memory:")
-	//db, err := gorm.Open(config.DB.Dialect, dbURI)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
