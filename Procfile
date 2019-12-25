@@ -1,1 +1,1 @@
-web: Go-sample
+web: sample_rest
