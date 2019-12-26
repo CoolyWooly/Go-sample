@@ -1,8 +1,11 @@
 package app
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
@@ -30,9 +33,18 @@ func (a *App) Initialize(config *config.Config) {
 	a.setRouters()
 }
 
+func homeLink(w http.ResponseWriter, r *http.Request) {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Fprintf(w, dir)
+}
+
 // Set all required routers
 func (a *App) setRouters() {
 	// Routing for handling the projects
+	a.Get("/", homeLink)
 	a.Get("/employees", a.GetAllEmployees)
 	a.Post("/employees", a.CreateEmployee)
 	a.Get("/employees/{title}", a.GetEmployee)
