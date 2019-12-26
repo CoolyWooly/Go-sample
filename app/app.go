@@ -22,12 +22,9 @@ type App struct {
 
 // App initialize with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	db, err := gorm.Open("sqlite3", dir+"/gorm.db")
+	db, err := gorm.Open("postgres", "postgres://tqurgkblyqvifi:a2f89ec18e50140bf497bf3da06b4254481e93af5ad4217335de5e6b5ae25fdc@ec2-54-195-252-243.eu-west-1.compute.amazonaws.com:5432/d1bb15eo4hprtf")
+	//db, err := gorm.Open("sqlite3", dir+"/gorm.db")
 	//db, err := gorm.Open("sqlite3", ":memory:")
 	if err != nil {
 		log.Fatal(err.Error())
