@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sample_rest/model"
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"sample_rest/config"
 	"sample_rest/handler"
-	"sample_rest/model"
 )
 
 // App has router and db instances
@@ -22,7 +22,12 @@ type App struct {
 
 // App initialize with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	db, err := gorm.Open("sqlite3", "C:\\Users\\AndroidDev\\GOProjects\\src\\sample_rest\\gorm.db")
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	db, err := gorm.Open("sqlite3", dir+"/gorm.db")
 	//db, err := gorm.Open("sqlite3", ":memory:")
 	if err != nil {
 		log.Fatal(err.Error())
@@ -34,11 +39,25 @@ func (a *App) Initialize(config *config.Config) {
 }
 
 func homeLink(w http.ResponseWriter, r *http.Request) {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	/*dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprintf(w, dir)
+	fmt.Fprintf(w, dir)*/
+
+	var files []string
+
+	root := "/app"
+	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		files = append(files, path)
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+	for _, file := range files {
+		fmt.Fprintf(w, file)
+	}
 }
 
 // Set all required routers
