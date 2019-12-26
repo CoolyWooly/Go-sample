@@ -17,6 +17,4 @@ func main() {
 		port = "5000"
 	}
 	application.Run(":" + port)
-
-	//application.Run(":5000")
 }
