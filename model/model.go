@@ -7,6 +7,6 @@ import (
 
 // DBMigrate will create and migrate the tables, and then make the some relationships if necessary
 func DBMigrate(db *gorm.DB) *gorm.DB {
-	db.AutoMigrate(&TaskModel{}, &UserModel{})
+	db.AutoMigrate(&TaskModel{}, &ExhibitModel{}, &ImageModel{})
 	return db
 }
