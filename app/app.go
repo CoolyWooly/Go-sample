@@ -41,13 +41,14 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 func (a *App) setRouters() {
 	// Routing for handling the projects
 	a.Get("/", homeLink)
-	a.Get("/employees", a.GetAllEmployees)
-	a.Post("/employees", a.CreateEmployee)
-	a.Get("/employees/{title}", a.GetEmployee)
-	a.Put("/employees/{title}", a.UpdateEmployee)
-	a.Delete("/employees/{title}", a.DeleteEmployee)
-	a.Put("/employees/{title}/disable", a.DisableEmployee)
-	a.Put("/employees/{title}/enable", a.EnableEmployee)
+	a.Get("/tasks", a.GetAllTasks)
+	a.Post("/task", a.CreateTask)
+	a.Get("/task/{title}", a.GetTask)
+	a.Put("/task/{title}", a.UpdateTask)
+	a.Delete("/task/{title}", a.DeleteTask)
+	a.Put("/task/{title}/disable", a.DisableTask)
+	a.Put("/task/{title}/enable", a.EnableTask)
+	a.Get("/info", a.GetInfo)
 }
 
 // Wrap the router for GET method
@@ -71,32 +72,36 @@ func (a *App) Delete(path string, f func(w http.ResponseWriter, r *http.Request)
 }
 
 // Handlers to manage Employee Data
-func (a *App) GetAllEmployees(w http.ResponseWriter, r *http.Request) {
-	handler.GetAllEmployees(a.DB, w, r)
+func (a *App) GetAllTasks(w http.ResponseWriter, r *http.Request) {
+	handler.GetAllTasks(a.DB, w, r)
 }
 
-func (a *App) CreateEmployee(w http.ResponseWriter, r *http.Request) {
-	handler.CreateEmployee(a.DB, w, r)
+func (a *App) CreateTask(w http.ResponseWriter, r *http.Request) {
+	handler.CreateTask(a.DB, w, r)
 }
 
-func (a *App) GetEmployee(w http.ResponseWriter, r *http.Request) {
-	handler.GetEmployee(a.DB, w, r)
+func (a *App) GetTask(w http.ResponseWriter, r *http.Request) {
+	handler.GetTask(a.DB, w, r)
 }
 
-func (a *App) UpdateEmployee(w http.ResponseWriter, r *http.Request) {
-	handler.UpdateEmployee(a.DB, w, r)
+func (a *App) UpdateTask(w http.ResponseWriter, r *http.Request) {
+	handler.UpdateTask(a.DB, w, r)
 }
 
-func (a *App) DeleteEmployee(w http.ResponseWriter, r *http.Request) {
-	handler.DeleteEmployee(a.DB, w, r)
+func (a *App) DeleteTask(w http.ResponseWriter, r *http.Request) {
+	handler.DeleteTask(a.DB, w, r)
 }
 
-func (a *App) DisableEmployee(w http.ResponseWriter, r *http.Request) {
-	handler.DisableEmployee(a.DB, w, r)
+func (a *App) DisableTask(w http.ResponseWriter, r *http.Request) {
+	handler.DisableTask(a.DB, w, r)
 }
 
-func (a *App) EnableEmployee(w http.ResponseWriter, r *http.Request) {
-	handler.EnableEmployee(a.DB, w, r)
+func (a *App) EnableTask(w http.ResponseWriter, r *http.Request) {
+	handler.EnableTask(a.DB, w, r)
+}
+
+func (a *App) GetInfo(w http.ResponseWriter, r *http.Request) {
+	handler.GetInfo(a.DB, w, r)
 }
 
 // Run the app on it's router
