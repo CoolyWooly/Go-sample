@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="gorm" uuid="c2591b64-d51b-4ac1-bfe4-2a6b8eebf812">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\GOProjects\Go-sample\src\sample_rest\gorm.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
