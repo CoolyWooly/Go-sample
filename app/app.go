@@ -46,13 +46,13 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 func (a *App) setRouters() {
 	// Routing for handling the projects
 	a.Get("/", homeLink)
-	a.Get("/api/exhibit", a.GetAllExhibits)
-	a.Post("/api/exhibit", a.CreateExhibit)
-	a.Get("/api/exhibit/{id}", a.GetExhibit)
-	a.Put("/api/exhibit/{id}", a.UpdateExhibit)
-	a.Delete("/api/exhibit/{id}", a.DeleteExhibit)
-	a.Put("/api/exhibit/{id}/disable", a.DisableExhibit)
-	a.Put("/api/exhibit/{id}/enable", a.EnableExhibit)
+	a.Get("/api/exhibits", a.GetAllExhibits)
+	a.Post("/api/exhibits", a.CreateExhibit)
+	a.Get("/api/exhibits/{id}", a.GetExhibit)
+	a.Put("/api/exhibits/{id}", a.UpdateExhibit)
+	a.Delete("/api/exhibits/{id}", a.DeleteExhibit)
+	a.Put("/api/exhibits/{id}/disable", a.DisableExhibit)
+	a.Put("/api/exhibits/{id}/enable", a.EnableExhibit)
 	a.Get("/api/info", a.GetInfo)
 }
 
