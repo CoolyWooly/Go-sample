@@ -46,13 +46,13 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 func (a *App) setRouters() {
 	// Routing for handling the projects
 	a.Get("/", homeLink)
-	a.Get("/tasks", a.GetAllTasks)
-	a.Post("/task", a.CreateTask)
-	a.Get("/task/{title}", a.GetTask)
-	a.Put("/task/{title}", a.UpdateTask)
-	a.Delete("/task/{title}", a.DeleteTask)
-	a.Put("/task/{title}/disable", a.DisableTask)
-	a.Put("/task/{title}/enable", a.EnableTask)
+	a.Get("/exhibit", a.GetAllExhibits)
+	a.Post("/exhibit", a.CreateExhibit)
+	a.Get("/exhibit/{id}", a.GetExhibit)
+	a.Put("/exhibit/{id}", a.UpdateExhibit)
+	a.Delete("/exhibit/{id}", a.DeleteExhibit)
+	a.Put("/exhibit/{id}/disable", a.DisableExhibit)
+	a.Put("/exhibit/{id}/enable", a.EnableExhibit)
 	a.Get("/info", a.GetInfo)
 }
 
@@ -77,32 +77,32 @@ func (a *App) Delete(path string, f func(w http.ResponseWriter, r *http.Request)
 }
 
 // Handlers to manage Employee Data
-func (a *App) GetAllTasks(w http.ResponseWriter, r *http.Request) {
-	handler.GetAllTasks(a.DB, w, r)
+func (a *App) GetAllExhibits(w http.ResponseWriter, r *http.Request) {
+	handler.GetAllExhibits(a.DB, w, r)
 }
 
-func (a *App) CreateTask(w http.ResponseWriter, r *http.Request) {
-	handler.CreateTask(a.DB, w, r)
+func (a *App) CreateExhibit(w http.ResponseWriter, r *http.Request) {
+	handler.CreateExhibit(a.DB, w, r)
 }
 
-func (a *App) GetTask(w http.ResponseWriter, r *http.Request) {
-	handler.GetTask(a.DB, w, r)
+func (a *App) GetExhibit(w http.ResponseWriter, r *http.Request) {
+	handler.GetExhibit(a.DB, w, r)
 }
 
-func (a *App) UpdateTask(w http.ResponseWriter, r *http.Request) {
-	handler.UpdateTask(a.DB, w, r)
+func (a *App) UpdateExhibit(w http.ResponseWriter, r *http.Request) {
+	handler.UpdateExhibit(a.DB, w, r)
 }
 
-func (a *App) DeleteTask(w http.ResponseWriter, r *http.Request) {
-	handler.DeleteTask(a.DB, w, r)
+func (a *App) DeleteExhibit(w http.ResponseWriter, r *http.Request) {
+	handler.DeleteExhibit(a.DB, w, r)
 }
 
-func (a *App) DisableTask(w http.ResponseWriter, r *http.Request) {
-	handler.DisableTask(a.DB, w, r)
+func (a *App) DisableExhibit(w http.ResponseWriter, r *http.Request) {
+	handler.DisableExhibit(a.DB, w, r)
 }
 
-func (a *App) EnableTask(w http.ResponseWriter, r *http.Request) {
-	handler.EnableTask(a.DB, w, r)
+func (a *App) EnableExhibit(w http.ResponseWriter, r *http.Request) {
+	handler.EnableExhibit(a.DB, w, r)
 }
 
 func (a *App) GetInfo(w http.ResponseWriter, r *http.Request) {

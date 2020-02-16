@@ -12,7 +12,7 @@ import (
 
 func GetAllExhibits(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	var exhibitModels []model.ExhibitModel
-	db.Find(&exhibitModels)
+	db.Preload("Images").Find(&exhibitModels)
 	respondJSON(w, http.StatusOK, exhibitModels)
 }
 
@@ -26,7 +26,7 @@ func CreateExhibit(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	if err := db.Save(&exhibitModel).Error; err != nil {
+	if err := db.Create(&exhibitModel).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -37,12 +37,12 @@ func GetExhibit(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	id := vars["id"]
-	idInt, err := strconv.ParseUint(id, 10, 32)
+	idInt, err := strconv.ParseInt(id, 10, 32)
 	if err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	taskModel := getExhibitOr404(db, uint(idInt), w, r)
+	taskModel := getExhibitOr404(db, int(idInt), w, r)
 	if taskModel == nil {
 		return
 	}
@@ -53,12 +53,12 @@ func UpdateExhibit(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	id := vars["id"]
-	idInt, err := strconv.ParseUint(id, 10, 32)
+	idInt, err := strconv.ParseInt(id, 10, 32)
 	if err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	exhibitModel := getExhibitOr404(db, uint(idInt), w, r)
+	exhibitModel := getExhibitOr404(db, int(idInt), w, r)
 	if exhibitModel == nil {
 		return
 	}
@@ -81,12 +81,12 @@ func DeleteExhibit(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	id := vars["id"]
-	idInt, err := strconv.ParseUint(id, 10, 32)
+	idInt, err := strconv.ParseInt(id, 10, 32)
 	if err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	exhibitModel := getExhibitOr404(db, uint(idInt), w, r)
+	exhibitModel := getExhibitOr404(db, int(idInt), w, r)
 	if exhibitModel == nil {
 		return
 	}
@@ -101,12 +101,12 @@ func DisableExhibit(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	id := vars["id"]
-	idInt, err := strconv.ParseUint(id, 10, 32)
+	idInt, err := strconv.ParseInt(id, 10, 32)
 	if err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	exhibitModel := getExhibitOr404(db, uint(idInt), w, r)
+	exhibitModel := getExhibitOr404(db, int(idInt), w, r)
 	if exhibitModel == nil {
 		return
 	}
@@ -122,12 +122,12 @@ func EnableExhibit(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	id := vars["id"]
-	idInt, err := strconv.ParseUint(id, 10, 32)
+	idInt, err := strconv.ParseInt(id, 10, 32)
 	if err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	exhibitModel := getExhibitOr404(db, uint(idInt), w, r)
+	exhibitModel := getExhibitOr404(db, int(idInt), w, r)
 	if exhibitModel == nil {
 		return
 	}
@@ -139,22 +139,11 @@ func EnableExhibit(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusOK, exhibitModel)
 }
 
-func getExhibitOr404(db *gorm.DB, id uint, w http.ResponseWriter, r *http.Request) *model.ExhibitModel {
+func getExhibitOr404(db *gorm.DB, id int, w http.ResponseWriter, r *http.Request) *model.ExhibitModel {
 	exhibitModel := model.ExhibitModel{}
-	if err := db.First(&exhibitModel, gorm.Model{ID: id}).Error; err != nil {
+	if err := db.Preload("Images").First(&exhibitModel, model.ExhibitModel{IdExhibit: id}).Error; err != nil {
 		respondError(w, http.StatusNotFound, err.Error())
 		return nil
 	}
-	exhibitModel.Photos = getImagesById(db, id)
 	return &exhibitModel
-}
-
-func getImagesById(db *gorm.DB, id uint) []string {
-	images := []string{"", ""}
-	var imageModels []model.ImageModel
-	db.Find(&imageModels).Where("IdExhibit = ?", id)
-
-	//imageModels.
-
-	return images
 }

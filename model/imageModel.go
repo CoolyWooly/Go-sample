@@ -1,11 +1,7 @@
 package model
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 type ImageModel struct {
-	gorm.Model
-	IdExhibit uint   `json:"id_exhibit"`
+	IdImage   int    `gorm:"primary_key" json:"id_image"`
 	Url       string `json:"url"`
+	IdExhibit int    `json:"id_exhibit"`
 }

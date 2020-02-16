@@ -1,20 +1,16 @@
 package model
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 type ExhibitModel struct {
-	gorm.Model
-	MuseumId    string   `json:"museum_id"`
-	Rating      float32  `json:"rating"`
-	Name        int      `json:"name"`
-	Description string   `json:"description"`
-	Year        string   `json:"year"`
-	Author      string   `json:"author"`
-	Audio       string   `json:"audio"`
-	Photos      []string `json:"photos"`
-	IsPopular   bool     `json:"is_popular"`
+	IdExhibit   int          `gorm:"primary_key" json:"id_exhibit"`
+	MuseumId    int          `json:"museum_id"`
+	Rating      float32      `json:"rating"`
+	Name        string       `json:"name"`
+	Description string       `json:"description"`
+	Year        int          `json:"year"`
+	Author      string       `json:"author"`
+	Audio       string       `json:"audio"`
+	IsPopular   bool         `json:"is_popular"`
+	Images      []ImageModel `gorm:"ForeignKey:IdExhibit" json:"images"`
 }
 
 func (e *ExhibitModel) RemoveFromPopular() {
