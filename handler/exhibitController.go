@@ -154,7 +154,7 @@ func getImagesById(db *gorm.DB, id uint) []string {
 	var imageModels []model.ImageModel
 	db.Find(&imageModels).Where("IdExhibit = ?", id)
 
-	imageModels.
+	//imageModels.
 
 	return images
 }

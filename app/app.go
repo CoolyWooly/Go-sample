@@ -18,6 +18,11 @@ type App struct {
 	DB     *gorm.DB
 }
 
+// Run the app on it's router
+func (a *App) Run(host string) {
+	log.Fatal(http.ListenAndServe(host, a.Router))
+}
+
 // App initialize with predefined configuration
 func (a *App) Initialize(config *config.Config) {
 
@@ -34,7 +39,7 @@ func (a *App) Initialize(config *config.Config) {
 }
 
 func homeLink(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome")
+	fmt.Fprintf(w, "Wake up, Neo")
 }
 
 // Set all required routers
@@ -102,9 +107,4 @@ func (a *App) EnableTask(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) GetInfo(w http.ResponseWriter, r *http.Request) {
 	handler.GetInfo(a.DB, w, r)
-}
-
-// Run the app on it's router
-func (a *App) Run(host string) {
-	log.Fatal(http.ListenAndServe(host, a.Router))
 }
