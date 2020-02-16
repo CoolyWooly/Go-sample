@@ -11,8 +11,15 @@ import (
 )
 
 func GetAllExhibits(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	page := r.FormValue("page")
+	limit := r.FormValue("limit")
+	search := r.FormValue("search")
+
+	pageInt, _ := strconv.ParseInt(page, 10, 32)
+	limitInt, _ := strconv.ParseInt(limit, 10, 32)
 	var exhibitModels []model.ExhibitModel
-	db.Preload("Images").Find(&exhibitModels)
+	db.Offset((pageInt-1)*limitInt).Limit(limitInt).Preload("Images").Where("Name LIKE ?", search+"%").Find(&exhibitModels)
+
 	respondJSON(w, http.StatusOK, exhibitModels)
 }
 
