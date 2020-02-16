@@ -6,7 +6,7 @@ type ExhibitModel struct {
 	Rating      float32      `json:"rating"`
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
-	Year        int          `json:"year"`
+	Year        string       `json:"year"`
 	Author      string       `json:"author"`
 	Audio       string       `json:"audio"`
 	IsPopular   bool         `json:"is_popular"`
